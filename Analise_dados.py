@@ -3,7 +3,7 @@ import pandas as pd
 
 
 class planilhas():
-    def carregando_planilha():
+    def carregar_planilha():
         gc = gspread.oauth()
         sheet = gc.open('dados-habitos')
         sheet.share('leitor-de-planilhas@dotted-signer-438321-m8.iam.gserviceaccount.com', perm_type = 'user', role = 'writer')
@@ -12,7 +12,7 @@ class planilhas():
 
         return gc, worksheet
 
-    def criando_planilhas(self, gc):
+    def criar_planilhas(self, gc):
         sheet_bernardo = gc.create("dados-bernardo")
         sheet_bernardo.share('leitor-de-planilhas@dotted-signer-438321-m8.iam.gserviceaccount.com', perm_type = 'user', role = 'writer')
         #sheet_bernardo.share('bernardoabnerwsp@gmail.com', perm_type = 'user', role = 'writer')
@@ -45,8 +45,7 @@ class manipulacao_dados():
 
 
 if __name__ == "__main__":
-    gc = {}
-    gc.setdefault(planilhas.carregando_planilha())
-    planilhas.criando_planilhas(gc[0])
-    manipulacao_dados.converte_df(gc[1])
+    planilhas.carregar_planilha()
+    planilhas.criar_planilhas()
+    manipulacao_dados.converte_df()
     manipulacao_dados.separacao_dados()
