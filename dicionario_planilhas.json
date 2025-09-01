@@ -1,17 +1,7 @@
 {
-    "dados_bernardo": {
-        "nome_planilha": "dados_bernardo",
-        "sheet": "sheet_bernardo",
-        "worksheet": "worksheet_bernardo"
-    },
-    "dados_jessyka": {
-        "nome_planilha": "dados_jessyka",
-        "sheet": "sheet_jessyka",
-        "worksheet": "worksheet_jessyka"
-    },
-    "dados-habitos": {
-        "nome_planilha": "dados-habitos",
-        "sheet": "sheet_habitos",
-        "worksheet": "worksheet_habitos"
-    }
+              "sheet_teste": {
+                            "nome_planilha": "sheet_teste",
+                            "sheet": "worksheet_teste",
+                            "worksheet": "planilha_teste"
+              }
 }
