@@ -1,3 +1,4 @@
+import Manipulacao_dados as md
 import gspread
 import pandas as pd
 import json
@@ -83,22 +84,29 @@ class planilhas():
     def abrir_planilha():
         nome_planilha_dict = planilhas.parametros_dict()[2]
         sheet = gc.open(nome_planilha_dict)
-        worksheet = sheet.sheet1
+        worksheet_gspread = sheet.sheet1
         print(f"A planilha {nome_planilha_dict} foi aberta!")
-        return worksheet
+        return worksheet_gspread
 
 if __name__ == "__main__":
     menu = int(input("---- Menu Planilhas ----\n" \
                      "Escolha a opção de acordo com o número da posição:\n" \
                      "1 - Criar nova planilha: \n" \
                      "2 - Abrir planilha: \n" \
+                     "3 - Manipular dados: \n" \
                      "0 - Sair: "))
     while menu != 0:
         if menu == 1:
             planilhas.criar_planilha(planilhas.parametros_variaveis()[2])
+            break
 
         elif menu == 2:
             planilhas.abrir_planilha()
+            break
+
+        elif menu == 3:
+            md.manipulacao_dados.converte_df()
+            break
 
 
     
