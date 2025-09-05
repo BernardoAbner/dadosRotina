@@ -4,24 +4,45 @@ import pandas as pd
 import json
 
 dict_planilhas = {}
+dict_dados_bernardo = {}
+dict_dados_jessyka  = {}
 gc = gspread.oauth()
 email = 'leitor-de-planilhas@dotted-signer-438321-m8.iam.gserviceaccount.com'
 
 class planilhas():
 
-    def carrega_dict(dict_planilhas_def):
+    # Continuar estruturaçãode logica de dicionarios
+    def escolher_json():
+        dict_jsons = {
+            "json_planilhas" :"dict_planilhas.json",
+            "json_dados_bernardo" : "dict_dados_bernardo.json",
+            "json_dados_jessyka" : "dict_dados_jessyka.json"
+        }
+        cont = 0
+        opcao = int(input("Insira o número do dicionário que deseja usar: "))
+        for chave in dict_jsons:
+            cont += 1
+            print(f"{cont} - {chave}")
+        if opcao == 1:
+            return dict_planilhas, dict_jsons["json_planilhas_geral"]
+        elif opcao == 2:
+            return dict_dados_bernardo, dict_jsons["json_dados_bernardo"]
+        elif opcao == 3:
+            return dict_dados_jessyka, dict_jsons["json_dados_jessyka"]
+
+    def carrega_dict(dict_return_def, caminho_json):
         try:
-            with open("dict_planilhas.json", "r") as arquivo:
-                    dict_planilhas_def = json.load(arquivo)
+            with open(caminho_json, "r") as arquivo:
+                    dict_return_def = json.load(arquivo)
                     print(f"Os dados do Json já estão disponiveis em dict_planilhas! ")
-                    return dict_planilhas_def
+                    return dict_return_def
         except json.decoder.JSONDecodeError as erro:
             print(f"O dicionário está vazio! Segue o erro {erro}")
 
-    dict_planilhas = carrega_dict(dict_planilhas)
+    dict_planilhas = carrega_dict(dict_planilhas, "dict_planilhas.json")
 
     def guarda_dict_json():
-        with open("dict_planilhas.json", "w") as arquivo:
+        with open("caminho_json", "w") as arquivo:
                 print("Guardando o dicionário com as informações no Json...")
                 json.dump(dict_planilhas, arquivo, indent=4)
                 print(dict_planilhas)
@@ -87,6 +108,24 @@ class planilhas():
         worksheet_gspread = sheet.sheet1
         print(f"A planilha {nome_planilha_dict} foi aberta!")
         return worksheet_gspread
+    
+    def separa_dados():
+        worksheet_gspread = planilhas.abrir_planilha()
+        cell_list_bernardo = worksheet_gspread.findall("Bernardo")
+        print(cell_list_bernardo)
+
+        cell_list_jessyka = worksheet_gspread.findall("Jessyka")
+        print(cell_list_jessyka)
+    
+        for celula in cell_list_bernardo:
+            values_list_bernardo = worksheet_gspread.row_values(celula.row)
+            print(celula)
+            print(values_list_bernardo)
+            
+        for celula in cell_list_jessyka:
+            values_list_jessyka = worksheet_gspread.row_values(celula.row)
+            print(celula)
+            print(values_list_jessyka)
 
 if __name__ == "__main__":
     menu = int(input("---- Menu Planilhas ----\n" \
@@ -105,7 +144,7 @@ if __name__ == "__main__":
             break
 
         elif menu == 3:
-            md.manipulacao_dados.converte_df()
+            planilhas.separa_dados()
             break
 
 
