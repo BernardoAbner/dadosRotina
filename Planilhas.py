@@ -96,9 +96,12 @@ if __name__ == "__main__":
     while menu != 0:
         if menu == 1:
             planilhas.criar_planilha(planilhas.parametros_variaveis()[2])
+            break
 
         elif menu == 2:
             planilhas.abrir_planilha()
+            break
+
 
 
     
