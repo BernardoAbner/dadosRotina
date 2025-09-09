@@ -12,14 +12,13 @@ email = 'leitor-de-planilhas@dotted-signer-438321-m8.iam.gserviceaccount.com'
 class planilhas():
 
     # Continuar estruturaçãode logica de dicionarios
-    def escolher_json():
+    def escolher_json(opcao):
         dict_jsons = {
             "json_planilhas" :"dict_planilhas.json",
             "json_dados_bernardo" : "dict_dados_bernardo.json",
             "json_dados_jessyka" : "dict_dados_jessyka.json"
         }
         cont = 0
-        opcao = int(input("Insira o número do dicionário que deseja usar: "))
         for chave in dict_jsons:
             cont += 1
             print(f"{cont} - {chave}")
@@ -41,11 +40,11 @@ class planilhas():
 
     dict_planilhas = carrega_dict(dict_planilhas, "dict_planilhas.json")
 
-    def guarda_dict_json():
-        with open("caminho_json", "w") as arquivo:
+    def guarda_dict_json(dict_return_def, caminho_json):
+        with open(caminho_json, "w") as arquivo:
                 print("Guardando o dicionário com as informações no Json...")
-                json.dump(dict_planilhas, arquivo, indent=4)
-                print(dict_planilhas)
+                json.dump(dict_return_def, arquivo, indent=4)
+                print(dict_return_def)
 
     def parametros_variaveis():
         sheet = input("digite a sheet: ")
@@ -108,24 +107,51 @@ class planilhas():
         worksheet_gspread = sheet.sheet1
         print(f"A planilha {nome_planilha_dict} foi aberta!")
         return worksheet_gspread
-    
+
     def separa_dados():
         worksheet_gspread = planilhas.abrir_planilha()
-        cell_list_bernardo = worksheet_gspread.findall("Bernardo")
-        print(cell_list_bernardo)
 
-        cell_list_jessyka = worksheet_gspread.findall("Jessyka")
-        print(cell_list_jessyka)
-    
-        for celula in cell_list_bernardo:
-            values_list_bernardo = worksheet_gspread.row_values(celula.row)
-            print(celula)
-            print(values_list_bernardo)
-            
-        for celula in cell_list_jessyka:
-            values_list_jessyka = worksheet_gspread.row_values(celula.row)
-            print(celula)
-            print(values_list_jessyka)
+        try:    
+            dict_return_bernardo, caminho_json_bernardo = planilhas.escolher_json(2)
+            planilhas.dict_dados_bernardo = planilhas.carrega_dict(dict_return_bernardo, caminho_json_bernardo)
+            cell_list_bernardo = worksheet_gspread.findall("Bernardo")
+            cont_bernardo = 1
+            for i in cell_list_bernardo:
+                dias_bernardo = f"Dia {cont_bernardo}"
+
+                linhas_bernardo = worksheet_gspread.row_values(i.row)
+
+                sub_dict_bernardo = {"Data" : linhas_bernardo[0], "Horario que acordou" : linhas_bernardo[2], "Academia" : linhas_bernardo[3], "Litros Agua" : linhas_bernardo[4], "Refeicoes" : linhas_bernardo[5], "Horario cama" : linhas_bernardo[6]}
+                
+                planilhas.dict_dados_bernardo[dias_bernardo] = sub_dict_bernardo
+
+                planilhas.guarda_dict_json(planilhas.dict_dados_bernardo, caminho_json_bernardo)
+                
+                cont_bernardo += 1
+
+
+
+            dict_return_jessyka, caminho_json_jessyka = planilhas.escolher_json(3)
+            planilhas.dict_dados_jessyka = planilhas.carrega_dict(dict_return_jessyka, caminho_json_jessyka)
+            cell_list_jessyka = worksheet_gspread.findall("Jessyka")
+            cont_jessyka = 1
+            for j in cell_list_jessyka:
+                dias_jessyka = f"Dia {cont_jessyka}"
+
+                linhas_jessyka = worksheet_gspread.row_values(j.row)
+
+                sub_dict_jessyka = {"Data" : linhas_jessyka[0], "Horario que acordou" : linhas_jessyka[2], "Academia" : linhas_jessyka[3], "Litros Agua" : linhas_jessyka[4], "Refeicoes" : linhas_jessyka[5], "Horario cama" : linhas_jessyka[6]}
+                
+                planilhas.dict_dados_jessyka[dias_jessyka] = sub_dict_jessyka
+
+                planilhas.guarda_dict_json(planilhas.dict_dados_jessyka, caminho_json_jessyka)
+                
+                cont_jessyka += 1
+        except TypeError as e:
+            print (f"O dict está retornando None! Se o json estiver vazio, insira um colchete vazio, para que ele não retorne None. Segue o erro {e}")
+
+        return planilhas.dict_dados_bernardo, planilhas.dict_dados_jessyka
+        
 
 if __name__ == "__main__":
     menu = int(input("---- Menu Planilhas ----\n" \
@@ -133,6 +159,7 @@ if __name__ == "__main__":
                      "1 - Criar nova planilha: \n" \
                      "2 - Abrir planilha: \n" \
                      "3 - Manipular dados: \n" \
+                     "4 - Converter em DataFrame \n" \
                      "0 - Sair: "))
     while menu != 0:
         if menu == 1:
@@ -146,6 +173,8 @@ if __name__ == "__main__":
         elif menu == 3:
             planilhas.separa_dados()
             break
+        elif menu == 4:
+            md.manipulacao_dados.converte_df()
 
 
     
