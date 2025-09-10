@@ -41,10 +41,9 @@ class planilhas():
     dict_planilhas = carrega_dict(dict_planilhas, "dict_planilhas.json")
 
     def guarda_dict_json(dict_return_def, caminho_json):
-        with open(caminho_json, "w") as arquivo:
-                print("Guardando o dicionário com as informações no Json...")
-                json.dump(dict_return_def, arquivo, indent=4)
-                print(dict_return_def)
+        with open(caminho_json, "w", encoding = 'utf-8') as arquivo:
+                json.dump(dict_return_def, arquivo, ensure_ascii = False, indent=4)
+                
 
     def parametros_variaveis():
         sheet = input("digite a sheet: ")
@@ -150,7 +149,7 @@ class planilhas():
         except TypeError as e:
             print (f"O dict está retornando None! Se o json estiver vazio, insira um colchete vazio, para que ele não retorne None. Segue o erro {e}")
 
-        return planilhas.dict_dados_bernardo, planilhas.dict_dados_jessyka
+        return planilhas.dict_dados_bernardo, planilhas.dict_dados_jessyka, worksheet_gspread
         
 
 if __name__ == "__main__":
@@ -160,6 +159,8 @@ if __name__ == "__main__":
                      "2 - Abrir planilha: \n" \
                      "3 - Manipular dados: \n" \
                      "4 - Converter em DataFrame \n" \
+                     "5 - Comparar dados\n" \
+                     "6 - escolhe comparação\n" \
                      "0 - Sair: "))
     while menu != 0:
         if menu == 1:
@@ -173,10 +174,16 @@ if __name__ == "__main__":
         elif menu == 3:
             planilhas.separa_dados()
             break
+
         elif menu == 4:
             md.manipulacao_dados.converte_df()
-
-
+            break
+        elif menu == 5:
+            md.manipulacao_dados.compara_dados()
+            break
+        elif menu == 6:
+            md.manipulacao_dados.escolhe_comparacao()
+            break
     
 
 
