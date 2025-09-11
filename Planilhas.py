@@ -79,6 +79,7 @@ class planilhas():
             print (f"O index passado não existe na lista! {e}")
         return sheet, worksheet, nome_planilha
 
+    
     def guarda_planilhas():
         sheet_variaveis, worksheet_variaveis, nome_planilha_variaveis = planilhas.parametros_variaveis()
         nome = nome_planilha_variaveis
@@ -106,10 +107,12 @@ class planilhas():
         worksheet_gspread = sheet.sheet1
         print(f"A planilha {nome_planilha_dict} foi aberta!")
         return worksheet_gspread
-
-    def separa_dados():
-        worksheet_gspread = planilhas.abrir_planilha()
-
+    
+    
+    def separa_dados(worksheet_gspread = None):
+        if worksheet_gspread is None:
+            worksheet_gspread = planilhas.abrir_planilha()
+        
         try:    
             dict_return_bernardo, caminho_json_bernardo = planilhas.escolher_json(2)
             planilhas.dict_dados_bernardo = planilhas.carrega_dict(dict_return_bernardo, caminho_json_bernardo)
@@ -150,7 +153,6 @@ class planilhas():
             print (f"O dict está retornando None! Se o json estiver vazio, insira um colchete vazio, para que ele não retorne None. Segue o erro {e}")
 
         return planilhas.dict_dados_bernardo, planilhas.dict_dados_jessyka, worksheet_gspread
-        
 
 if __name__ == "__main__":
     menu = int(input("---- Menu Planilhas ----\n" \
@@ -162,6 +164,10 @@ if __name__ == "__main__":
                      "5 - Comparar dados\n" \
                      "6 - escolhe comparação\n" \
                      "0 - Sair: "))
+    
+    worksheet_gspread = None
+    dados_bernardo = None
+    dados_jessyka = None
     while menu != 0:
         if menu == 1:
             planilhas.criar_planilha(planilhas.parametros_variaveis()[2])
@@ -172,14 +178,21 @@ if __name__ == "__main__":
             break
 
         elif menu == 3:
-            planilhas.separa_dados()
+            if worksheet_gspread is None:
+                worksheet_gspread = planilhas.abrir_planilha()
+            dados_bernardo, dados_jessyka, _ = planilhas.separa_dados(worksheet_gspread)
             break
 
         elif menu == 4:
+            if worksheet_gspread is None or dados_bernardo is None or dados_jessyka is None:
+                worksheet_gspread, dados_bernardo, dados_jessyka = planilhas.separa_dados(worksheet_gspread)
             md.manipulacao_dados.converte_df()
             break
         elif menu == 5:
-            md.manipulacao_dados.compara_dados()
+            if worksheet_gspread is None or dados_bernardo is None or dados_jessyka is None:
+                worksheet_gspread = planilhas.abrir_planilha()
+                dados_bernardo, dados_jessyka, _ = planilhas.separa_dados(worksheet_gspread)
+            md.manipulacao_dados.compara_dados(dados_bernardo)
             break
         elif menu == 6:
             md.manipulacao_dados.escolhe_comparacao()
