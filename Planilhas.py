@@ -12,21 +12,26 @@ email = 'leitor-de-planilhas@dotted-signer-438321-m8.iam.gserviceaccount.com'
 class planilhas():
 
     # Continuar estruturaçãode logica de dicionarios
-    def escolher_json(opcao):
+    def escolher_json(opcao = None):
         dict_jsons = {
             "json_planilhas" :"dict_planilhas.json",
             "json_dados_bernardo" : "dict_dados_bernardo.json",
             "json_dados_jessyka" : "dict_dados_jessyka.json"
         }
         cont = 0
-        for chave in dict_jsons:
-            cont += 1
-            print(f"{cont} - {chave}")
+        if opcao is None:
+            for chave in dict_jsons:
+                cont += 1
+                print(f"{cont} - {chave}")
+            opcao = input("Escolha o dicionário que deseja abrir: ")
         if opcao == 1:
+            print(dict_jsons["json_planilhas_geral"])
             return dict_planilhas, dict_jsons["json_planilhas_geral"]
         elif opcao == 2:
+            print(dict_jsons["json_dados_bernardo"])
             return dict_dados_bernardo, dict_jsons["json_dados_bernardo"]
         elif opcao == 3:
+            print(dict_jsons["json_dados_jessyka"])
             return dict_dados_jessyka, dict_jsons["json_dados_jessyka"]
 
     def carrega_dict(dict_return_def, caminho_json):
@@ -44,7 +49,6 @@ class planilhas():
         with open(caminho_json, "w", encoding = 'utf-8') as arquivo:
                 json.dump(dict_return_def, arquivo, ensure_ascii = False, indent=4)
                 
-
     def parametros_variaveis():
         sheet = input("digite a sheet: ")
         worksheet = input("Digite o nome da worksheet: ")
@@ -52,21 +56,24 @@ class planilhas():
         
         return sheet, worksheet, nome_planilha
 
-    def parametros_dict():
+    def parametros_dict(chave = None):
         lista_planilhas = []
         cont = 0
         sheet = ''
         worksheet = ''
         nome_planilha = ''
-        print("\n---- Dicionários disponíveis ----")
-        for chave in planilhas.dict_planilhas:
-            lista_planilhas.append(chave)
-            print (f"{cont} - {chave}")
-            cont += 1
-        try: 
+
+        if chave == None:
+            print("\n---- Dicionários disponíveis ----")
+            for j in planilhas.dict_planilhas:
+                lista_planilhas.append(j)
+                print (f"{cont} - {j}")
+                cont += 1
             chave = int(input("Insira o número da planilha que deseja manipular: "))
-        except ValueError as e:
-            print(f"Input inválido! Favor inserir o número da planilha! {e}")
+
+        else: 
+            for j in planilhas.dict_planilhas:
+                lista_planilhas.append(j)
 
         try:
             for i in planilhas.dict_planilhas:
@@ -78,7 +85,6 @@ class planilhas():
         except IndexError as e:
             print (f"O index passado não existe na lista! {e}")
         return sheet, worksheet, nome_planilha
-
     
     def guarda_planilhas():
         sheet_variaveis, worksheet_variaveis, nome_planilha_variaveis = planilhas.parametros_variaveis()
@@ -101,18 +107,21 @@ class planilhas():
         print(f"O worksheet {worksheet_variaveis} foi criado com sucesso!")
         planilhas.compartilhar_planilha(sheet)
 
-    def abrir_planilha():
-        nome_planilha_dict = planilhas.parametros_dict()[2]
-        sheet = gc.open(nome_planilha_dict)
-        worksheet_gspread = sheet.sheet1
-        print(f"A planilha {nome_planilha_dict} foi aberta!")
-        return worksheet_gspread
-    
+    def abrir_planilha(dict_dados_bernardo = None, worksheet_gspread = None):
+        if dict_dados_bernardo is None:
+            nome_planilha_dict = planilhas.parametros_dict(0)[2]
+            sheet = gc.open(nome_planilha_dict)
+            worksheet_gspread = sheet.sheet1
+            print(f"A planilha {nome_planilha_dict} foi aberta!")
+            return worksheet_gspread
+        else:
+            return worksheet_gspread
     
     def separa_dados(worksheet_gspread = None):
         if worksheet_gspread is None:
             worksheet_gspread = planilhas.abrir_planilha()
-        
+
+        planilhas.abrir_planilha(worksheet_gspread)
         try:    
             dict_return_bernardo, caminho_json_bernardo = planilhas.escolher_json(2)
             planilhas.dict_dados_bernardo = planilhas.carrega_dict(dict_return_bernardo, caminho_json_bernardo)
@@ -189,10 +198,12 @@ if __name__ == "__main__":
             md.manipulacao_dados.converte_df()
             break
         elif menu == 5:
-            if worksheet_gspread is None or dados_bernardo is None or dados_jessyka is None:
-                worksheet_gspread = planilhas.abrir_planilha()
+            if worksheet_gspread is None or dados_bernardo is None:
+                dados_bernardo = planilhas.parametros_dict(0)
+                dados_jessyka = planilhas.parametros_dict(1)
+                worksheet_gspread = planilhas.abrir_planilha(dados_bernardo)
                 dados_bernardo, dados_jessyka, _ = planilhas.separa_dados(worksheet_gspread)
-            md.manipulacao_dados.compara_dados(dados_bernardo)
+            md.manipulacao_dados.compara_dados(dados_bernardo, dados_jessyka, worksheet_gspread)
             break
         elif menu == 6:
             md.manipulacao_dados.escolhe_comparacao()
