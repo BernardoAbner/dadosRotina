@@ -125,8 +125,73 @@ class planilhas():
         lista_datas = []
 
         if parametro_json is None:
-            planilhas.escolher_json()
+           dict_return, caminho_json = planilhas.escolher_json()
+        elif parametro_json is not None:
+            dict_return, caminho_json = planilhas.escolher_json()
+
+        if worksheet_gspread is None:
+            worksheet_gspread = planilhas.abrir_planilha()
         
+            dict_dados = planilhas.carrega_dict(dict_return, caminho_json)
+            if caminho_json == "dict_dados_jessyka.json":
+                nome = "Jessyka"
+            elif caminho_json == "dict_dados_bernardo.json":
+                nome = "Bernardo"
+
+            cell_list = worksheet_gspread.findall(nome)
+            cont = 1
+
+            for i in cell_list:
+                dias = f"Dia {cont}"
+                linhas = worksheet_gspread.row_values(i.row)
+                if (linhas[0]):
+                    data = datetime.strptime(linhas[0], mascara_data).date
+                    lista_datas.insert(cont, data)
+                    
+                if (linhas[2]):
+                    hora_acordou = int(linhas[2][:2])
+                    linhas.pop(2)
+                    linhas.insert(2, hora_acordou)
+
+                if (linhas[3] == "Sim"):
+                    linhas.pop(3)
+                    linhas.insert(3, 1)
+                elif(linhas[3] == "Não"):
+                    linhas.pop(3)
+                    linhas.insert(3, 0)
+
+                if (linhas[4]):
+                    litros_agua = int(linhas[4])
+                    linhas.pop(4)
+                    linhas.insert(4, litros_agua)
+
+                if(linhas[5]):
+                    refeicoes = int(linhas[5])
+                    linhas.pop(5)
+                    linhas.insert(5, refeicoes)
+                if (linhas[6]):
+                    horario_cama = int(linhas[6][:2])
+                    linhas.pop(6)
+                    linhas.insert(6, horario_cama)
+
+
+            k = 0
+            while k < len(lista_datas):
+                if(k + 1 < len(lista_datas)):
+                    if lista_datas[k] == lista_datas[k+1]:
+                        data_jessyka = datetime.strptime(lista_datas[k+1], '%d/%m/%y')
+                        data_estimada = data_jessyka + timedelta(days = 1)
+                        lista_datas.pop(k+1)
+                        lista_datas.insert(k+1, data_estimada.strftime('%d/%m/%y'))
+                        k = -1
+                k += 1
+        cont = 0
+        for i in cell_list:
+            linhas = worksheet_gspread.row_values(i.row)
+            sub_dict = {"Data" : lista_datas[cont], "Horario que acordou": linhas[2], "Academia": linhas[3], "Litros agua" : linhas[4], "Refeicoes": linhas[5], "horario cama" : linhas[6]}
+            cont += 1
+        dict_dados[dias] = sub_dict
+        # Terminar logica de guardar o dicionário no json, e criar um json especifico para os dados int
 
     def separa_dados(worksheet_gspread = None):
         mascara_data = '%d/%m/%Y %H:%M:%S'
