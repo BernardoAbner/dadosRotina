@@ -8,6 +8,7 @@ class manipulacao_dados():
         if dict_dados_bernardo is None or dict_dados_jessyka is None or worksheet_gspread is None:
             dict_dados_bernardo, dict_dados_jessyka, worksheet_gspread = pl.planilhas.separa_dados() 
         dataframe = pd.DataFrame(worksheet_gspread.get_all_records())
+        print(dataframe)
         print("Planilha convertida em dataframe!")
 
         dataframe_bernardo = pd.DataFrame(dict_dados_bernardo)
@@ -52,20 +53,16 @@ class manipulacao_dados():
 
         if opcao == 0:
             i = 1
-            # Refazer essa logica
+            lista_dataframes = []
             while i < 7:
                 dataframe_bernardo_fracionado, dataframe_jessyka_fracionado = manipulacao_dados.escolhe_comparacao(i, dataframe_bernardo, dataframe_jessyka)
-                df_comparacao_1 = pd.concat([dataframe_bernardo_fracionado, dataframe_jessyka_fracionado],  axis = 0, keys = ["Bernardo", "Jessyka"])
-
-                dataframe_bernardo_fracionado, dataframe_jessyka_fracionado = manipulacao_dados.escolhe_comparacao(i + 1, dataframe_bernardo, dataframe_jessyka)
-                df_comparacao_2 = pd.concat([dataframe_bernardo_fracionado, dataframe_jessyka_fracionado], axis = 0, keys = ["Bernardo", "Jessyka"])
-
-                df_comparacao = pd.concat([df_comparacao_1, df_comparacao_2], axis = 0)
-                print (df_comparacao)
-
-                df_comparacao_1 = None
-                df_comparacao_2 = None
+                df_comparacao_aux = pd.concat([dataframe_bernardo_fracionado, dataframe_jessyka_fracionado],  axis = 0, keys = ["Bernardo", "Jessyka"])
+                lista_dataframes.append(df_comparacao_aux)
                 i += 1
+            df_comparacao = pd.concat(lista_dataframes, axis = 0)
+            print (df_comparacao)
+            return df_comparacao
+
 
         elif opcao == 1:
             dataframe_bernardo_fracionado, dataframe_jessyka_fracionado = manipulacao_dados.escolhe_comparacao(opcao, dataframe_bernardo, dataframe_jessyka)
@@ -92,5 +89,6 @@ class manipulacao_dados():
             df_comparacao = pd.concat([dataframe_bernardo_fracionado, dataframe_jessyka_fracionado], axis = 0, keys = ["Bernardo", "Jessyka"])
             print(df_comparacao)
         
+    def cria_grafico():
+        dataframe = manipulacao_dados.compara_dados()
         
-
