@@ -1,1 +1,219 @@
-{}
+{
+    "26/08/25": {
+        "Horario que acordou": 9,
+        "Academia": 0,
+        "Litros agua": 2,
+        "Refeicoes": 3,
+        "horario cama": 0
+    },
+    "27/08/25": {
+        "Horario que acordou": 6,
+        "Academia": 1,
+        "Litros agua": 3,
+        "Refeicoes": 4,
+        "horario cama": 23
+    },
+    "28/08/25": {
+        "Horario que acordou": 6,
+        "Academia": 1,
+        "Litros agua": 3,
+        "Refeicoes": 4,
+        "horario cama": 23
+    },
+    "29/08/25": {
+        "Horario que acordou": 6,
+        "Academia": 0,
+        "Litros agua": 3,
+        "Refeicoes": 3,
+        "horario cama": 23
+    },
+    "30/08/25": {
+        "Horario que acordou": 6,
+        "Academia": 1,
+        "Litros agua": 4,
+        "Refeicoes": 3,
+        "horario cama": 23
+    },
+    "31/08/25": {
+        "Horario que acordou": 7,
+        "Academia": 0,
+        "Litros agua": 2,
+        "Refeicoes": 3,
+        "horario cama": 1
+    },
+    "02/09/25": {
+        "Horario que acordou": 6,
+        "Academia": 1,
+        "Litros agua": 4,
+        "Refeicoes": 5,
+        "horario cama": 0
+    },
+    "03/09/25": {
+        "Horario que acordou": 6,
+        "Academia": 1,
+        "Litros agua": 4,
+        "Refeicoes": 4,
+        "horario cama": 22
+    },
+    "04/09/25": {
+        "Horario que acordou": 6,
+        "Academia": 1,
+        "Litros agua": 4,
+        "Refeicoes": 4,
+        "horario cama": 23
+    },
+    "05/09/25": {
+        "Horario que acordou": 6,
+        "Academia": 1,
+        "Litros agua": 2,
+        "Refeicoes": 4,
+        "horario cama": 0
+    },
+    "07/09/25": {
+        "Horario que acordou": 7,
+        "Academia": 0,
+        "Litros agua": 2,
+        "Refeicoes": 3,
+        "horario cama": 0
+    },
+    "09/09/25": {
+        "Horario que acordou": 9,
+        "Academia": 1,
+        "Litros agua": 3,
+        "Refeicoes": 3,
+        "horario cama": 0
+    },
+    "11/09/25": {
+        "Horario que acordou": 6,
+        "Academia": 1,
+        "Litros agua": 3,
+        "Refeicoes": 4,
+        "horario cama": 0
+    },
+    "12/09/25": {
+        "Horario que acordou": 5,
+        "Academia": 1,
+        "Litros agua": 3,
+        "Refeicoes": 3,
+        "horario cama": 22
+    },
+    "13/09/25": {
+        "Horario que acordou": 7,
+        "Academia": 1,
+        "Litros agua": 4,
+        "Refeicoes": 4,
+        "horario cama": 1
+    },
+    "14/09/25": {
+        "Horario que acordou": 9,
+        "Academia": 1,
+        "Litros agua": 2,
+        "Refeicoes": 3,
+        "horario cama": 1
+    },
+    "15/09/25": {
+        "Horario que acordou": 8,
+        "Academia": 0,
+        "Litros agua": 2,
+        "Refeicoes": 3,
+        "horario cama": 4
+    },
+    "16/09/25": {
+        "Horario que acordou": 9,
+        "Academia": 0,
+        "Litros agua": 1,
+        "Refeicoes": 3,
+        "horario cama": 23
+    },
+    "17/09/25": {
+        "Horario que acordou": 7,
+        "Academia": 1,
+        "Litros agua": 3,
+        "Refeicoes": 3,
+        "horario cama": 23
+    },
+    "18/09/25": {
+        "Horario que acordou": 6,
+        "Academia": 1,
+        "Litros agua": 4,
+        "Refeicoes": 3,
+        "horario cama": 0
+    },
+    "19/09/25": {
+        "Horario que acordou": 10,
+        "Academia": 0,
+        "Litros agua": 3,
+        "Refeicoes": 3,
+        "horario cama": 0
+    },
+    "26/09/25": {
+        "Horario que acordou": 10,
+        "Academia": 0,
+        "Litros agua": 2,
+        "Refeicoes": 3,
+        "horario cama": 1
+    },
+    "27/09/25": {
+        "Horario que acordou": 9,
+        "Academia": 0,
+        "Litros agua": 3,
+        "Refeicoes": 3,
+        "horario cama": 0
+    },
+    "30/09/25": {
+        "Horario que acordou": 7,
+        "Academia": 0,
+        "Litros agua": 2,
+        "Refeicoes": 3,
+        "horario cama": 0
+    },
+    "01/10/25": {
+        "Horario que acordou": 6,
+        "Academia": 1,
+        "Litros agua": 3,
+        "Refeicoes": 3,
+        "horario cama": 23
+    },
+    "02/10/25": {
+        "Horario que acordou": 6,
+        "Academia": 1,
+        "Litros agua": 3,
+        "Refeicoes": 3,
+        "horario cama": 22
+    },
+    "03/10/25": {
+        "Horario que acordou": 6,
+        "Academia": 1,
+        "Litros agua": 3,
+        "Refeicoes": 4,
+        "horario cama": 0
+    },
+    "05/10/25": {
+        "Horario que acordou": 7,
+        "Academia": 0,
+        "Litros agua": 2,
+        "Refeicoes": 4,
+        "horario cama": 0
+    },
+    "06/10/25": {
+        "Horario que acordou": 11,
+        "Academia": 0,
+        "Litros agua": 2,
+        "Refeicoes": 1,
+        "horario cama": 23
+    },
+    "07/10/25": {
+        "Horario que acordou": 10,
+        "Academia": 0,
+        "Litros agua": 3,
+        "Refeicoes": 3,
+        "horario cama": 1
+    },
+    "08/10/25": {
+        "Horario que acordou": 8,
+        "Academia": 1,
+        "Litros agua": 3,
+        "Refeicoes": 3,
+        "horario cama": 0
+    }
+}
