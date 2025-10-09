@@ -166,6 +166,27 @@ class planilhas():
                     print(data)
                 cont += 1
 
+            k = 0
+            while k < len(lista_datas):
+                if(k + 1 < len(lista_datas)):
+                    if lista_datas[k] == lista_datas[k+1]:
+                        data = lista_datas[k+1]
+                        data_estimada = data + timedelta(days = 1)
+                        lista_datas.pop(k+1)
+                        lista_datas.insert(k+1, data_estimada)
+                        k = -1
+                    if (type(lista_datas[k]) is not str):
+                        data_temp = lista_datas[k].strftime('%d/%m/%y')
+                        lista_datas.pop(k)
+                        lista_datas.insert(k, data_temp)
+                k += 1
+
+            cont = 0
+            for i in cell_list_copia:
+                sub_dict = {"Horario que acordou": linhas_convertidas[cont][2], "Academia": linhas_convertidas[cont][3], "Litros agua" : linhas_convertidas[cont][4], "Refeicoes": linhas_convertidas[cont][5], "horario cama" : linhas_convertidas[cont][6]}
+                dict_dados[lista_datas[cont]] = sub_dict
+                cont += 1
+
         elif (parametro_json == 4 or parametro_json == 5): 
             for i in cell_list_copia:
                 linhas = worksheet_gspread.row_values(i.row)
@@ -206,26 +227,26 @@ class planilhas():
                 linhas_convertidas[cont] = linhas
                 cont += 1 
 
-        k = 0
-        while k < len(lista_datas):
-            if(k + 1 < len(lista_datas)):
-                if lista_datas[k] == lista_datas[k+1]:
-                    data = lista_datas[k+1]
-                    data_estimada = data + timedelta(days = 1)
-                    lista_datas.pop(k+1)
-                    lista_datas.insert(k+1, data_estimada)
-                    k = -1
-                if (type(lista_datas[k]) is not str):
-                    data_temp = lista_datas[k].strftime('%d/%m/%y')
-                    lista_datas.pop(k)
-                    lista_datas.insert(k, data_temp)
-            k += 1
+            k = 0
+            while k < len(lista_datas):
+                if(k + 1 < len(lista_datas)):
+                    if lista_datas[k] == lista_datas[k+1]:
+                        data = lista_datas[k+1]
+                        data_estimada = data + timedelta(days = 1)
+                        lista_datas.pop(k+1)
+                        lista_datas.insert(k+1, data_estimada)
+                        k = -1
+                    if (type(lista_datas[k]) is not str):
+                        data_temp = lista_datas[k].strftime('%d/%m/%y')
+                        lista_datas.pop(k)
+                        lista_datas.insert(k, data_temp)
+                k += 1
 
-        cont = 0
-        for i in cell_list_copia:
-            sub_dict = {"Horario que acordou": linhas_convertidas[cont][2], "Academia": linhas_convertidas[cont][3], "Litros agua" : linhas_convertidas[cont][4], "Refeicoes": linhas_convertidas[cont][5], "horario cama" : linhas_convertidas[cont][6]}
-            dict_dados[lista_datas[cont]] = sub_dict
-            cont += 1
+            cont = 0
+            for i in cell_list_copia:
+                sub_dict = {"Horario que acordou": linhas_convertidas[cont][2], "Academia": linhas_convertidas[cont][3], "Litros agua" : linhas_convertidas[cont][4], "Refeicoes": linhas_convertidas[cont][5], "horario cama" : linhas_convertidas[cont][6]}
+                dict_dados[lista_datas[cont]] = sub_dict
+                cont += 1
 
         return dict_dados, caminho_json
             
