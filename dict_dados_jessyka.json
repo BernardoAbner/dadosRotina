@@ -158,5 +158,173 @@
         "Litros Agua": "2",
         "Refeicoes": "4",
         "Horario cama": "00:00"
+    },
+    "26/08/25": {
+        "Horario que acordou": "07:00",
+        "Academia": "Não",
+        "Litros agua": "2",
+        "Refeicoes": "4",
+        "horario cama": "00:00"
+    },
+    "27/08/25": {
+        "Horario que acordou": "07:00",
+        "Academia": "Sim",
+        "Litros agua": "3",
+        "Refeicoes": "3",
+        "horario cama": "00:00"
+    },
+    "28/08/25": {
+        "Horario que acordou": "06:00",
+        "Academia": "Sim",
+        "Litros agua": "2",
+        "Refeicoes": "3",
+        "horario cama": "00:00"
+    },
+    "29/08/25": {
+        "Horario que acordou": "07:00",
+        "Academia": "Não",
+        "Litros agua": "3",
+        "Refeicoes": "3",
+        "horario cama": "22:00"
+    },
+    "31/08/25": {
+        "Horario que acordou": "07:00",
+        "Academia": "Sim",
+        "Litros agua": "3",
+        "Refeicoes": "4",
+        "horario cama": "00:00"
+    },
+    "01/09/25": {
+        "Horario que acordou": "08:00",
+        "Academia": "Não",
+        "Litros agua": "2",
+        "Refeicoes": "3",
+        "horario cama": "01:00"
+    },
+    "02/09/25": {
+        "Horario que acordou": "07:00",
+        "Academia": "Sim",
+        "Litros agua": "2",
+        "Refeicoes": "3",
+        "horario cama": "23:00"
+    },
+    "03/09/25": {
+        "Horario que acordou": "07:00",
+        "Academia": "Sim",
+        "Litros agua": "3",
+        "Refeicoes": "4",
+        "horario cama": "00:00"
+    },
+    "04/09/25": {
+        "Horario que acordou": "07:00",
+        "Academia": "Sim",
+        "Litros agua": "1",
+        "Refeicoes": "3",
+        "horario cama": "00:00"
+    },
+    "08/09/25": {
+        "Horario que acordou": "06:00",
+        "Academia": "Não",
+        "Litros agua": "1",
+        "Refeicoes": "3",
+        "horario cama": "23:00"
+    },
+    "09/09/25": {
+        "Horario que acordou": "07:00",
+        "Academia": "Sim",
+        "Litros agua": "2",
+        "Refeicoes": "3",
+        "horario cama": "00:00"
+    },
+    "10/09/25": {
+        "Horario que acordou": "09:00",
+        "Academia": "Sim",
+        "Litros agua": "2",
+        "Refeicoes": "3",
+        "horario cama": "00:00"
+    },
+    "11/09/25": {
+        "Horario que acordou": "05:00",
+        "Academia": "Sim",
+        "Litros agua": "3",
+        "Refeicoes": "3",
+        "horario cama": "00:00"
+    },
+    "12/09/25": {
+        "Horario que acordou": "05:00",
+        "Academia": "Sim",
+        "Litros agua": "3",
+        "Refeicoes": "4",
+        "horario cama": "23:00"
+    },
+    "13/09/25": {
+        "Horario que acordou": "05:00",
+        "Academia": "Sim",
+        "Litros agua": "3",
+        "Refeicoes": "3",
+        "horario cama": "00:00"
+    },
+    "15/09/25": {
+        "Horario que acordou": "11:00",
+        "Academia": "Não",
+        "Litros agua": "2",
+        "Refeicoes": "3",
+        "horario cama": "23:00"
+    },
+    "16/09/25": {
+        "Horario que acordou": "06:00",
+        "Academia": "Sim",
+        "Litros agua": "3",
+        "Refeicoes": "3",
+        "horario cama": "00:00"
+    },
+    "18/09/25": {
+        "Horario que acordou": "05:00",
+        "Academia": "Sim",
+        "Litros agua": "3",
+        "Refeicoes": "3",
+        "horario cama": "23:00"
+    },
+    "25/09/25": {
+        "Horario que acordou": "05:00",
+        "Academia": "Sim",
+        "Litros agua": "3",
+        "Refeicoes": "4",
+        "horario cama": "23:00"
+    },
+    "26/09/25": {
+        "Horario que acordou": "05:00",
+        "Academia": "Sim",
+        "Litros agua": "3",
+        "Refeicoes": "3",
+        "horario cama": "00:00"
+    },
+    "01/10/25": {
+        "Horario que acordou": "05:00",
+        "Academia": "Sim",
+        "Litros agua": "3",
+        "Refeicoes": "4",
+        "horario cama": "00:00"
+    },
+    "03/10/25": {
+        "Horario que acordou": "05:00",
+        "Academia": "Sim",
+        "Litros agua": "3",
+        "Refeicoes": "4",
+        "horario cama": "00:00"
+    },
+    "05/10/25": {
+        "Horario que acordou": "09:00",
+        "Academia": "Não",
+        "Litros agua": "2",
+        "Refeicoes": "3",
+        "horario cama": "01:00"
+    },
+    "08/10/25": {
+        "Horario que acordou": "05:00",
+        "Academia": "Sim",
+        "Litros agua": "3",
+        "Refeicoes": "3",
+        "horario cama": "02:00"
     }
 }
