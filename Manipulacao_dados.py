@@ -2,22 +2,22 @@ import Planilhas as pl
 import pandas as pd
 import matplotlib as plt
 
+
+
 class manipulacao_dados():
 
-    def converte_df(dict_dados_bernardo = None, dict_dados_jessyka = None, worksheet_gspread = None):
-        if dict_dados_bernardo is None or dict_dados_jessyka is None or worksheet_gspread is None:
-            dict_dados_bernardo, dict_dados_jessyka, worksheet_gspread = pl.planilhas.separa_dados() 
+    def converte_df(dict_dados = None, worksheet_gspread = None):
+        if dict_dados is None or None or worksheet_gspread is None:
+            dict_dados = pl.planilhas.converte_dados()
+            worksheet_gspread = pl.planilhas.abrir_planilha()
         dataframe = pd.DataFrame(worksheet_gspread.get_all_records())
         print(dataframe)
         print("Planilha convertida em dataframe!")
 
-        dataframe_bernardo = pd.DataFrame(dict_dados_bernardo)
-        print(dataframe_bernardo)
+        dataframe_pessoa = pd.DataFrame(dict_dados)
+        print(dataframe_pessoa)
 
-        dataframe_jessyka = pd.DataFrame(dict_dados_jessyka) 
-        print(dataframe_jessyka)
-
-        return dataframe_bernardo, dataframe_jessyka
+        return dataframe_pessoa
     
     def escolhe_comparacao(opcao, dataframe_bernardo = None, dataframe_jessyka = None):
         if dataframe_bernardo is None or dataframe_jessyka is None:
@@ -36,8 +36,8 @@ class manipulacao_dados():
         elif opcao == 6:
             return dataframe_bernardo[5:6], dataframe_jessyka[5:6]
 
-    def compara_dados(dict_dados_bernardo = None, dict_dados_jessyka = None, worksheet_gspread = None):
-        if dict_dados_bernardo is None:
+    def compara_dados(dict_dados = None, worksheet_gspread = None):
+        if dict_dados is None or worksheet_gspread is None:
             dict_return_bernardo, caminho_json_bernardo = pl.planilhas.escolher_json(2)
             dict_dados_bernardo = pl.planilhas.carrega_dict(dict_return_bernardo, caminho_json_bernardo)
             dict_return_jessyka, caminho_json_jessyka = pl.planilhas.escolher_json(3)
@@ -92,3 +92,4 @@ class manipulacao_dados():
     def cria_grafico():
         dataframe = manipulacao_dados.compara_dados()
         
+# Melhorar 100% da logica utilizada nessa classe, e adaptar para a classe converte_dados, que substituiu a classe separa_dados.

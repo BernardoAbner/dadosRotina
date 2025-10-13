@@ -378,17 +378,31 @@
         "horario cama": "01:00"
     },
     "08/10/25": {
+        "Horario que acordou": "08:00",
+        "Academia": "Sim",
+        "Litros agua": "3",
+        "Refeicoes": "3",
+        "horario cama": "00:00"
+    },
+    "09/10/25": {
         "Horario que acordou": "05:00",
         "Academia": "Sim",
         "Litros agua": "3",
         "Refeicoes": "3",
         "horario cama": "23:00"
     },
-    "09/10/25": {
-        "Horario que acordou": "08:00",
-        "Academia": "Sim",
+    "13/10/25": {
+        "Horario que acordou": "11:00",
+        "Academia": "Não",
+        "Litros agua": "2",
+        "Refeicoes": "2",
+        "horario cama": "02:00"
+    },
+    "14/10/25": {
+        "Horario que acordou": "11:00",
+        "Academia": "Não",
         "Litros agua": "3",
         "Refeicoes": "3",
-        "horario cama": "00:00"
+        "horario cama": "03:00"
     }
 }

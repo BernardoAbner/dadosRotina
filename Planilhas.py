@@ -127,8 +127,7 @@ class planilhas():
             return worksheet_gspread
         else:
             return worksheet_gspread
-    
-    # implementaar a função transfere_dados_para_lista na função converte_dados.
+
     def transfere_dados_para_lista(worksheet_gspread = None, parametro_json = None):
         linhas_convertidas = {}
 
@@ -180,15 +179,6 @@ class planilhas():
                     print(data)
                 cont += 1
 
-            '''for i in cell_list_copia:
-                linhas = worksheet_gspread.row_values(i.row)
-                linhas_convertidas[cont] = linhas
-                if (linhas[0]):
-                    data = datetime.strptime(linhas[0], mascara_data).date()
-                    lista_datas.insert(cont, data)
-                    print(data)
-                cont += 1'''
-
         elif (parametro_json == 4 or parametro_json == 5):
             for i in cell_list:
                 if (linhas_convertidas[cont][0]):
@@ -198,8 +188,6 @@ class planilhas():
                 if(linhas_convertidas[cont][2]):
                         hora_acordou = int(linhas_convertidas[cont][2][:2])
                         linhas_convertidas[cont][2] = hora_acordou
-
-
 
                 if(linhas_convertidas[cont][3] == "Sim"):
                     linhas_convertidas[cont][3] = 1
@@ -220,46 +208,6 @@ class planilhas():
                     
                 print(linhas_convertidas[cont])
                 cont += 1
-
-        ''' elif (parametro_json == 4 or parametro_json == 5): 
-            for i in cell_list_copia:
-                linhas = worksheet_gspread.row_values(i.row)
-                if (linhas[0]):
-                    data = datetime.strptime(linhas[0], mascara_data).date()
-                    lista_datas.insert(cont, data)
-                    print(data)
-                    
-                if (linhas[2]):
-                    hora_acordou = int(linhas[2][:2])
-                    linhas.pop(2)
-                    linhas.insert(2, hora_acordou)
-
-
-                if (linhas[3] == "Sim"):
-                    linhas.pop(3)
-                    linhas.insert(3, 1)
-
-                elif(linhas[3] == "Não"):
-                    linhas.pop(3)
-                    linhas.insert(3, 0)
-
-                if (linhas[4]):
-                    litros_agua = int(linhas[4])
-                    linhas.pop(4)
-                    linhas.insert(4, litros_agua)
-
-                if(linhas[5]):
-                    refeicoes = int(linhas[5])
-                    linhas.pop(5)
-                    linhas.insert(5, refeicoes)
-                    
-                if (linhas[6]):
-                    horario_cama = int(linhas[6][:2])
-                    linhas.pop(6)
-                    linhas.insert(6, horario_cama)
-
-                linhas_convertidas[cont] = linhas
-                cont += 1 '''
 
         k = 0
         while k < len(lista_datas):
@@ -286,110 +234,6 @@ class planilhas():
             cont += 1
 
         return dict_dados, caminho_json
-            
-
-    def separa_dados(worksheet_gspread = None):
-        mascara_data = '%d/%m/%Y %H:%M:%S'
-        lista_datas_jessyka = []
-        lista_datas_bernardo = []
-        if worksheet_gspread is None:
-                worksheet_gspread = planilhas.abrir_planilha()
-        worksheet_gspread.get_all_records()
-        try:    
-            dict_return_bernardo, caminho_json_bernardo = planilhas.escolher_json(2)
-            planilhas.dict_dados_bernardo = planilhas.carrega_dict(dict_return_bernardo, caminho_json_bernardo)
-            cell_list_bernardo = worksheet_gspread.findall("Bernardo")
-            cont_bernardo = 1
-            for i in cell_list_bernardo:
-                dias_bernardo = f"Dia {cont_bernardo}"
-                linhas_bernardo = worksheet_gspread.row_values(i.row)
-                if (linhas_bernardo[3] == "Sim"):
-                    linhas_bernardo.pop(3)
-                    linhas_bernardo.insert(3, 1)
-                elif (linhas_bernardo[3] == "Não"):
-                    linhas_bernardo.pop(3)
-                    linhas_bernardo.insert(3, 0)
-                    
-
-                sub_dict_bernardo = {"Data" : linhas_bernardo[0], "Horario que acordou" : linhas_bernardo[2], "Academia" : linhas_bernardo[3], "Litros Agua" : linhas_bernardo[4], "Refeicoes" : linhas_bernardo[5], "Horario cama" : linhas_bernardo[6]}
-                
-                planilhas.dict_dados_bernardo[dias_bernardo] = sub_dict_bernardo
-
-                planilhas.guarda_dict_json(planilhas.dict_dados_bernardo, caminho_json_bernardo)
-                
-                cont_bernardo += 1
-
-            dict_return_jessyka, caminho_json_jessyka = planilhas.escolher_json(3)
-            planilhas.dict_dados_jessyka = planilhas.carrega_dict(dict_return_jessyka, caminho_json_jessyka)
-            cell_list_jessyka = worksheet_gspread.findall("Jessyka")
-            cont_jessyka = 0
-            for j in cell_list_jessyka:
-                dias_jessyka = f"Dia {cont_jessyka}"
-
-                linhas_jessyka = worksheet_gspread.row_values(j.row)
-
-                if (linhas_jessyka[0]):
-                    data_jessyka = datetime.strptime(linhas_jessyka[0], mascara_data).date()
-                    linhas_jessyka.pop(0)
-                    linhas_jessyka.insert(0, data_jessyka.strftime('%d/%m/%y'))
-                    lista_datas_jessyka.append(linhas_jessyka[0])
-                    if(len(lista_datas_jessyka) > 1 and lista_datas_jessyka[cont_jessyka] is lista_datas_jessyka[cont_jessyka - 1]):
-                        lista_datas_jessyka.pop(cont_jessyka)
-                        data_estimada = lista_datas_jessyka[cont_jessyka-1] + timedelta(days = 1)
-                        lista_datas_jessyka.insert(cont_jessyka, data_estimada)
-
-                if (linhas_jessyka[2]):
-                    hora_acordou = int(linhas_jessyka[2][:2])
-                    linhas_jessyka.pop(2)
-                    linhas_jessyka.insert(2, hora_acordou)
-                    print(hora_acordou)
-                    
-                if (linhas_jessyka[3] == "Sim"):
-                    linhas_jessyka.pop(3)
-                    linhas_jessyka.insert(3, 1)
-                elif (linhas_jessyka[3] == "Não"):
-                    linhas_jessyka.pop(3)
-                    linhas_jessyka.insert(3, 0)
-                cont_jessyka += 1
-
-                if (linhas_jessyka[4]):
-                    litros_agua = int(linhas_jessyka[4])
-                    linhas_jessyka.pop(4)
-                    linhas_jessyka.insert(4, litros_agua)
-
-                if (linhas_jessyka[5]):
-                    refeicoes = int(linhas_jessyka[5])
-                    linhas_jessyka.pop(5)
-                    linhas_jessyka.insert(5, refeicoes)
-
-                if (linhas_jessyka[6]):
-                    horario_cama = int(linhas_jessyka[6][:2])
-                    linhas_jessyka.pop(6)
-                    linhas_jessyka.insert(6, horario_cama)
-
-            k = 0
-            while k < len(lista_datas_jessyka):
-                if(k + 1 < len(lista_datas_jessyka)):
-                    if lista_datas_jessyka[k] == lista_datas_jessyka[k+1]:
-                        data_jessyka = datetime.strptime(lista_datas_jessyka[k+1], '%d/%m/%y')
-                        data_estimada = data_jessyka + timedelta(days = 1)
-                        lista_datas_jessyka.pop(k+1)
-                        lista_datas_jessyka.insert(k+1, data_estimada.strftime('%d/%m/%y'))
-                        k = -1
-                k += 1
-
-
-
-            sub_dict_jessyka = {"Data" : linhas_jessyka[0], "Horario que acordou" : linhas_jessyka[2], "Academia" : linhas_jessyka[3], "Litros Agua" : linhas_jessyka[4], "Refeicoes" : linhas_jessyka[5], "Horario cama" : linhas_jessyka[6]}
-                
-            planilhas.dict_dados_jessyka[dias_jessyka] = sub_dict_jessyka
-
-            planilhas.guarda_dict_json(planilhas.dict_dados_jessyka, caminho_json_jessyka)
-        except TypeError as e:
-            print (f"O dict está retornando None! Se o json estiver vazio, insira um colchete vazio, para que ele não retorne None. Segue o erro abaixo: \n {e}")
-
-        return planilhas.dict_dados_bernardo, planilhas.dict_dados_jessyka, worksheet_gspread
-    
         
 
 if __name__ == "__main__":
@@ -435,16 +279,9 @@ if __name__ == "__main__":
         elif menu == 4:
             if worksheet_gspread is None or dados_bernardo is None or dados_jessyka is None:
                 worksheet_gspread = planilhas.abrir_planilha()
-                dados_bernardo, dados_jessyka, _ = planilhas.separa_dados(worksheet_gspread)
-            md.manipulacao_dados.converte_df(dados_bernardo, dados_jessyka, worksheet_gspread)
-            break
-
-        elif menu == 5:
-            if worksheet_gspread is None:
-                worksheet_gspread = planilhas.abrir_planilha()
-            planilhas.separa_dados(worksheet_gspread)
-            break
-            
+                dict_dados = planilhas.separa_dados(worksheet_gspread)
+            md.manipulacao_dados.converte_df(dict_dados, worksheet_gspread)
+            break    
 
         elif menu == 6:
             if worksheet_gspread is None or dados_bernardo is None:
@@ -462,7 +299,7 @@ if __name__ == "__main__":
             break
         elif menu == 9:
             linhas_convertidas_bernardo, cell_list_bernardo = planilhas.transfere_dados_para_lista(worksheet_gspread = worksheet_gspread, parametro_json = 2)
-            linhas_convetidas_jessyka, cell_list_jessyka = planilhas.transfere_dados_para_lista(worksheet_gspread = worksheet_gspread, parametro_json = parametros_jessyka)
+            linhas_convertidas_jessyka, cell_list_jessyka = planilhas.transfere_dados_para_lista(worksheet_gspread = worksheet_gspread, parametro_json = parametros_jessyka)
             if(parametros_bernardo):
                 dict_dados_bernardo, caminho_json = planilhas.converte_dados(linhas_convertidas = linhas_convertidas_bernardo, cell_list =  cell_list_bernardo, parametro_json = parametros_bernardo)
                 planilhas.guarda_dict_json(dict_dados_bernardo, caminho_json)
