@@ -134,6 +134,9 @@ class planilhas():
         if worksheet_gspread is None:
             worksheet_gspread = planilhas.abrir_planilha()
 
+        if parametro_json is None:
+           parametro_json = int(input("Você deseja manipular os dados de quem? Digite 2 para Bernardo ou 3 Para jessyka: "))
+
         if (parametro_json == 2 or parametro_json == 4):
             nome = "Bernardo"
 
@@ -145,6 +148,7 @@ class planilhas():
         print(cell_list)
 
         cell_list_copia = cell_list.copy()
+
         cont = 0
         for i in cell_list_copia:
             linhas = worksheet_gspread.row_values(i.row)
@@ -158,6 +162,9 @@ class planilhas():
         mascara_data = '%d/%m/%Y %H:%M:%S'
         dict_dados = {}
         lista_datas = []
+
+        if linhas_convertidas is None or cell_list is None:
+            linhas_convertidas, cell_list = planilhas.transfere_dados_para_lista()
 
         if parametro_json is None:
            dict_return, caminho_json = planilhas.escolher_json()
@@ -291,9 +298,21 @@ if __name__ == "__main__":
                 dados_bernardo, dados_jessyka, _ = planilhas.separa_dados(worksheet_gspread)
             md.manipulacao_dados.compara_dados(dados_bernardo, dados_jessyka, worksheet_gspread)
             break
+
         elif menu == 7:
-            md.manipulacao_dados.escolhe_comparacao()
+            linhas_convertidas_bernardo, cell_list_bernardo = planilhas.transfere_dados_para_lista(worksheet_gspread = worksheet_gspread, parametro_json = 2)
+            linhas_convertidas_jessyka, cell_list_jessyka = planilhas.transfere_dados_para_lista(worksheet_gspread = worksheet_gspread, parametro_json = parametros_jessyka)
+
+            dados_bernardo, caminho_json_bernardo = planilhas.converte_dados(linhas_convertidas= linhas_convertidas_bernardo, cell_list = cell_list_bernardo, parametro_json = parametros_bernardo)
+            dados_jessyka, caminho_json_jessyka = planilhas.converte_dados(linhas_convertidas = linhas_convertidas_jessyka, cell_list = cell_list_jessyka, parametro_json = parametros_jessyka)
+
+            dataframe_bernardo = md.manipulacao_dados.converte_df(dados_bernardo)        
+            dataframe_jessyka = md.manipulacao_dadods.converte_df(dados_jessyka)
+
+            md.manipulacao_dados.compara_df(opcao = 0, dict_dados = dados_bernardo, dataframe_bernardo = dataframe_bernardo, dataframe_jessyka = dataframe_jessyka)
+           
             break
+
         elif menu == 8:
             md.manipulacao_dados.cria_grafico()
             break
@@ -319,6 +338,18 @@ if __name__ == "__main__":
 
         elif menu == 10:
             planilhas.transfere_dados_para_lista(worksheet_gspread = worksheet_gspread, parametro_json = 2)
+
+
+        #Terminar de entender como funciona a logica do .row_values para replicar sem ter que chamar a API
+        elif menu == 11:
+            linhas_convertidas_bernardo, cell_list_bernardo = planilhas.transfere_dados_para_lista(worksheet_gspread = worksheet_gspread, parametro_json = 2)
+            cont = 0
+            for i in cell_list_bernardo:
+                linhas = worksheet_gspread.row_values(i.row)
+                linhas_convertidas_bernardo[cont] = linhas
+                cont += 1
+                print(i)
+                print(worksheet_gspread.row_values(i.row))
     
 
 
